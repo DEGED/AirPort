@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.FlightsControllerGUI">
+   <children>
+      <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="600.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Config">
+            <items>
+                  <Menu mnemonicParsing="false" text="Sort by">
+                     <items>
+                        <MenuItem fx:id="SortDate" mnemonicParsing="false" onAction="#SortingDate" text="date" />
+                        <MenuItem fx:id="SortSchedule" mnemonicParsing="false" onAction="#SortingSchedule" text="Schedule" />
+                        <MenuItem fx:id="SortAirLine" mnemonicParsing="false" onAction="#SortingAirLine" text="AirLine" />
+                        <MenuItem fx:id="SortCode" mnemonicParsing="false" onAction="#SortingCode" text="Code" />
+                        <MenuItem fx:id="SortCity" mnemonicParsing="false" onAction="#SortingCity" text="City" />
+                        <MenuItem fx:id="sortGate" mnemonicParsing="false" onAction="#SortingGates" text="Gate" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Config">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                     </items>
+                  </Menu>
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Search">
+               <items>
+                  <Menu mnemonicParsing="false" text=" by">
+                     <items>
+                        <MenuItem fx:id="searchDate1" mnemonicParsing="false" onAction="#searchingDate" text="date" />
+                        <MenuItem fx:id="searchSchedule1" mnemonicParsing="false" onAction="#searchingSchedule" text="Schedule" />
+                        <MenuItem fx:id="searchAirLine1" mnemonicParsing="false" onAction="#searchingAirLine" text="AirLine" />
+                        <MenuItem fx:id="searchCode1" mnemonicParsing="false" onAction="#searchingCode" text="Code" />
+                        <MenuItem fx:id="searchCity1" mnemonicParsing="false" onAction="#searchingCity" text="City" />
+                        <MenuItem fx:id="searchGate1" mnemonicParsing="false" onAction="#searchingGates" text="Gate" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Config">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                     </items>
+                  </Menu>
+               </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Random Generation">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#generatingFlights" text="Generate" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" onAction="#AboutMessage" text="About" />
+        </menus>
+      </MenuBar>
+      <TableView fx:id="inicialTableView" layoutY="26.0" prefHeight="327.0" prefWidth="600.0" />
+      <Button fx:id="backWard" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#backWardAction" text="Back ward" />
+      <Button fx:id="Button" layoutX="100.0" layoutY="361.0" mnemonicParsing="false" onAction="#nextAction" text="Next" />
+      <Label layoutX="514.0" layoutY="365.0" text="Hora:" />
+   </children>
+</AnchorPane>

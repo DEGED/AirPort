@@ -2,8 +2,9 @@ package model;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Random;
 
-public class Flight {
+public class Flight implements Comparable<Flight> {
 //constants
 	public static String BRAZIL = "BRAZIL";
 	public static String CHINA = "CHINA";
@@ -18,7 +19,7 @@ public class Flight {
 	private String code;
 	private String city;
 	private String time;
-
+	private String schedule;
 	private int hourOut;
 	private int minuteOut;
 	private int gate;
@@ -38,33 +39,19 @@ public class Flight {
 		
 	}
 	public void timeToString() {
-		/*
-		Date x = new Date();
+		Random x = new Random();
+		int ran = x.nextInt(2);
 		String schedule = "";
-		String[] actualDate = x.toString().split(" ");
-		String[] amOrPmString = actualDate[3].split(":");
-		int militarHour = Integer.parseInt(amOrPmString[4]);
-		if(militarHour >= 12 ) {
-			schedule = "PM";
-		}else if(militarHour < 12) {
+		if(ran == 0){
 			schedule = "AM";
+		}else if(ran == 1){
+			schedule = "PM";
 		}
-	
 		
-		if(hourOut >= 12) {
-			
-		}
-		+""+schedule
-		*/
-		time = ""+hourOut+":"+minuteOut;
+		time = ""+hourOut+":"+minuteOut+" "+schedule;
 	}
 	public String dateOutToString(){
 		return (""+date.getMonth()+"/"+date.getDate()+"/"+date.getYear());
-	}
-	public String toString() {
-		String msj = "";
-		msj += "date"+date.getMonth()+"/"+date.getDay()+"/"+date.getYear()+" airLine"+AirLine+" code"+code+"city"+city+" time"+time+" gate"+gate;
-		return msj;
 	}
 //	getters and setters
 	public String getTime() {
@@ -120,6 +107,25 @@ public class Flight {
 	}
 	public void setDateOut(String dateOut) {
 		this.dateOut = dateOut;
+	}
+	public String getSchedule() {
+		return schedule;
+	}
+	public void setSchedule(String schedule) {
+		this.schedule = schedule;
+	}
+	@Override
+	public int compareTo(Flight s){
+		int resultado = 0;
+		if(AirLine.compareTo(s.getAirLine())<0) {
+			resultado= -1;
+		}else if(AirLine.compareTo(s.getAirLine())>0){
+			resultado= 1;
+		}else {
+			resultado = 0;
+		}
+		
+		return resultado;
 	}
 	
 }

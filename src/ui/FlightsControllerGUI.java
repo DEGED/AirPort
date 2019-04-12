@@ -147,7 +147,6 @@ public class FlightsControllerGUI {
     	endTime = System.currentTimeMillis();
     	AlertTime();
     }
-
     @FXML
     void SortingGates(ActionEvent event) {
     	initTime = System.currentTimeMillis();
@@ -486,7 +485,7 @@ public class FlightsControllerGUI {
 
     public ObservableList<Flight> getFlights(ArrayList<Flight> array){
     	ObservableList<Flight> flights = FXCollections.observableArrayList();
-    	for(int i =0; i<12;i++){
+    	for(int i =0; i<array.size();i++){
     		flights.add(array.get(i));
     	}
     	return flights;

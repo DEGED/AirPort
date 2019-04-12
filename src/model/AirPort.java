@@ -137,7 +137,7 @@ public class AirPort {
 		FileReader fr = new FileReader(f);
 		BufferedReader br = new BufferedReader(fr);
 		String line = br.readLine();
-		int airRand = x.nextInt(8);
+		int airRand = x.nextInt(7);
 		while(line != null){
 			String[] parts = line.split(step);
 			System.out.println(parts[0]);
@@ -166,7 +166,6 @@ public class AirPort {
 			}
 			line = br.readLine();
 		}
-		System.out.println(airLineRandom);
 		br.close();
 		return airLineRandom;
 	}

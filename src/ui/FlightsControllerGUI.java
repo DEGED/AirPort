@@ -150,7 +150,7 @@ public class FlightsControllerGUI {
     @FXML
     void SortingGates(ActionEvent event) {
     	initTime = System.currentTimeMillis();
-    	airPort.sortGate();
+//    	TODO airPort.sortGate();
     	inicialTableView.setItems(getFlights(airPort.getFlights()));
     	endTime = System.currentTimeMillis();
     	AlertTime();
@@ -192,11 +192,15 @@ public class FlightsControllerGUI {
 				ranFlights = Integer.parseInt(genericText.getText());
 				try {
 					airPort.RandomGeneric(ranFlights);
-				} catch (IOException e) {
+				} catch (IOException e){
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				airPort.sortDate();
+//				airPort.sortDate();
+//				airPort.sortAirLine();
+//				airPort.sortCode();
+//				airPort.sortTime();
+				airPort.toArrayList();
 				//DateColumn
 		    	TableColumn<Flight, String> dateColumn = new TableColumn<>("DATE");
 		    	dateColumn.setMinWidth(100);
@@ -252,8 +256,8 @@ public class FlightsControllerGUI {
     		@Override
     		public void handle(ActionEvent arg0){
     			initTime = System.currentTimeMillis();
-    			int find = airPort.searchingAirling(genericText.getText());
-    			Flight found = airPort.getFlights().get(find);
+    			
+    			Flight found = airPort.searchingAirling(genericText.getText());
     			ObservableList<Flight> x = FXCollections.observableArrayList(found);
     			inicialTableView.setItems(x);
     			endTime = System.currentTimeMillis();
@@ -286,8 +290,8 @@ public class FlightsControllerGUI {
     		@Override
     		public void handle(ActionEvent arg0){
 //    			initTime = System.currentTimeMillis();
-    			int find = airPort.searchingCity(genericText.getText());
-    			Flight found = airPort.getFlights().get(find);
+    			
+    			Flight found = airPort.searchingCity(genericText.getText());
     			ObservableList<Flight> x = FXCollections.observableArrayList(found);
     			inicialTableView.setItems(x);
 //    			endTime = System.currentTimeMillis();
@@ -320,8 +324,7 @@ public class FlightsControllerGUI {
     		@Override
     		public void handle(ActionEvent arg0){
     			initTime = System.currentTimeMillis();
-    			int find = airPort.searchingCode(genericText.getText());
-    			Flight found = airPort.getFlights().get(find);
+    			Flight found = airPort.searchingCode(genericText.getText());
     			ObservableList<Flight> x = FXCollections.observableArrayList(found);
     			inicialTableView.setItems(x);
     			endTime = System.currentTimeMillis();
@@ -356,8 +359,9 @@ public class FlightsControllerGUI {
     		@Override
     		public void handle(ActionEvent arg0){
     			initTime = System.currentTimeMillis();
-    			int find = airPort.searchingDate(genericText.getText());
-    			Flight found = airPort.getFlights().get(find);
+//    			int find = airPort.searchingDate(genericText.getText());
+//    			Flight found = airPort.getFlights().get(find);
+    			Flight found = airPort.searchingDate(genericText.getText());
     			ObservableList<Flight> x = FXCollections.observableArrayList(found);
     			inicialTableView.setItems(x);
     			endTime = System.currentTimeMillis();
@@ -390,9 +394,8 @@ public class FlightsControllerGUI {
     		@Override
     		public void handle(ActionEvent arg0){
     			initTime = System.currentTimeMillis();
-    			int find = airPort.searchingGate(Integer.parseInt(genericText.getText()));
-    			System.out.println(find);
-    			Flight found = airPort.getFlights().get(find);
+    		
+    			Flight found = airPort.searchingGate(Integer.parseInt(genericText.getText()));
     			ObservableList<Flight> x = FXCollections.observableArrayList(found);
     			inicialTableView.setItems(x);
     			endTime = System.currentTimeMillis();
@@ -425,9 +428,7 @@ public class FlightsControllerGUI {
     		@Override
     		public void handle(ActionEvent arg0){
     			initTime = System.currentTimeMillis();
-    			int find = airPort.searchingHour(genericText.getText());
-    			System.out.println(find);
-    			Flight found = airPort.getFlights().get(find);
+    			Flight found = airPort.searchingHour(genericText.getText());
     			ObservableList<Flight> x = FXCollections.observableArrayList(found);
     			inicialTableView.setItems(x);
     			endTime = System.currentTimeMillis();

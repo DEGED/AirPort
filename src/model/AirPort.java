@@ -9,6 +9,7 @@ import java.util.*;
 
 public class AirPort {
 
+	public static String L = "data\\airLine.txt";
 	public static String AVIANCA = "AVIANCA";
 	public static String ADA = "ADA";
 	public static String AERO_OASIS = "AERO OASIS";
@@ -19,99 +20,142 @@ public class AirPort {
 	public static String WEST = "WEST";	
 
 	private ArrayList<Flight> flights;
-	
-	public AirPort() {
+//	new attribute
+	private Flight first;
+	public AirPort(){
 		
 		flights = new ArrayList<Flight>();
 	}
 
-	public int searchingDate(String date) {
-		int posFind = -1;
-		boolean found = false;
-			for(int i = 0; i<flights.size() && !found; i++) {
-				if(flights.get(i).getDateOut().equals(date)) {
-					found = true;
-					posFind = i;
-				}
+	public Flight searchingDate(String date){
+		
+		Flight found = null;
+		Flight current = first;
+		boolean flag = false;
+		while(current!=null && !flag){
+			if(current.getDateOut().equals(date)){
+				found = current;
+				flag = true;
 			}
-		return posFind;
+			current = current.getNext();
+		}
+		
+		return found;
 	}
 	
-	public int searchingAirling(String airLine) {
-		sortAirLine();
-		int posFound = -1;
-		int  mid = 0;
-		int low = 0;
-		int high = 0;
-		while(low<= high && posFound == -1) {
-			mid = (low+high)/2;
-			if(flights.get(mid).getAirLine().compareToIgnoreCase(airLine)<0){
-				mid = low+1;
-			}else if(flights.get(mid).getAirLine().compareToIgnoreCase(airLine)>0) {
-				mid = high-1;
-			}else {
-				posFound = mid;
+	public Flight searchingAirling(String airLine) {
+		Flight found = null;
+		Flight current = first;
+		boolean flag = false;
+		while(current!=null && !flag){
+			if(current.getAirLine().equals(airLine)){
+				found = current;
+				flag = true;
 			}
+			current = current.getNext();
 		}
-		return posFound;
-	}
-	public int searchingCode(String code){
-		int posFound = -1;
-		boolean found = false;
-			for(int i = 0; i<flights.size() && !found;i++) {
-				if(flights.get(i).getCode().equalsIgnoreCase(code)) {
-					found = true;
-					posFound = i;
-				}
-			}
-		return posFound;
-	}
-	public int searchingCity(String city) {
-		sortCity();
-		int posFound = -1;
-		int  mid = 0;
-		int low = 0;
-		int high = 0;
-		while(low<= high && posFound == -1) {
-			mid = (low+high)/2;
-			if(flights.get(mid).getCity().compareToIgnoreCase(city)<0){
-				mid = low+1;
-			}else if(flights.get(mid).getCity().compareToIgnoreCase(city)>0){
-				mid = high-1;
-			}else {
-				posFound = mid;
-			}
-		}
-		return posFound;
+		
+		return found;
 	}
 	
-	public int searchingHour(String hour) {
-		int posFound = -1;
-		boolean found = false;
-			for(int i = 0; i<flights.size() && !found;i++) {
-				if(flights.get(i).getTime().equalsIgnoreCase(hour)) {
-					found = true;
-					posFound = i;
-				}
+	public Flight searchingCode(String code){
+		Flight found = null;
+		Flight current = first;
+		boolean flag = false;
+		while(current!=null && !flag){
+			if(current.getCode().equals(code)){
+				found = current;
+				flag = true;
 			}
-		return posFound;
+			current = current.getNext();
+		}
+		
+		return found;
 	}
-	public int searchingGate(int gate) {
-		int posFound = -1;
-		boolean found = false;
-			for(int i = 0; i<flights.size() && !found;i++) {
-				if(flights.get(i).getGate() == gate){
-					found = true;
-					posFound = i;
-				}
+	public Flight searchingCity(String city) {
+		Flight found = null;
+		Flight current = first;
+		boolean flag = false;
+		while(current!=null && !flag){
+			if(current.getCity().equals(city)){
+				found = current;
+				flag = true;
 			}
-		return posFound;
+			current = current.getNext();
+		}
+		
+		return found;
+	}
+	
+	public Flight searchingHour(String hour) {
+		Flight found = null;
+		Flight current = first;
+		boolean flag = false;
+		while(current!=null && !flag){
+			if(current.getTime().equalsIgnoreCase(hour)){
+				found = current;
+				flag = true;
+			}
+			current = current.getNext();
+		}
+		
+		return found;
+	}
+	public Flight searchingGate(int gate) {
+		Flight found = null;
+		Flight current = first;
+		boolean flag = false;
+		while(current!=null && !flag){
+			if(current.getGate() == gate){
+				found = current;
+				flag = true;
+			}
+			current = current.getNext();
+		}
+		
+		return found;
 	}
 	public void RandomGeneric(int numberOfFlights) throws IOException {
+		Flight[] x = new Flight[numberOfFlights];
 		for(int i = 0; i<numberOfFlights ; i++){
 			Flight randomFligth = new Flight(randomDate(), randomAirLine("data\\airLine.txt", ";"), randomCode(), randomCity(), randomHour(), randomMinute(), randomGate());
-			flights.add(randomFligth);
+			x[i] = randomFligth;
 		}
+		first = x[0];
+		Flight current = first;
+		for(int i = 1; i<numberOfFlights; i++){
+				if(current!=null){
+				Flight prev = current;
+				current.setNext(x[i]);
+				current = current.getNext();
+				current.setPrevious(prev);
+//				System.out.println(current.getAirLine());
+			}
+		}
+		
+	}
+	//nuevo método no agregado en la API
+	//	TODO
+	public void toArrayList() {
+		Flight current = first;
+		while(current != null) {
+			flights.add(current);
+			current = current.getNext();
+		}
+		for(int i = 0; i<flights.size();i++){
+//			System.out.println(flights.get(i).dateOutToString());
+		}
+	}
+	//metodo no agregado en la API
+	//TODO
+	public int sizeOfLinkedList() {
+		int  retu = 0;
+		Flight current = first;
+		while(current != null){
+			retu++;
+			current = current.getNext();
+		}
+		return retu;
 	}
 	public Date randomDate(){
 		Random x = new Random();
@@ -140,7 +184,7 @@ public class AirPort {
 		int airRand = x.nextInt(7);
 		while(line != null){
 			String[] parts = line.split(step);
-			System.out.println(parts[0]);
+//			System.out.println(parts[0]);
 			String easyFly= parts[0];
 			String ada = parts[1];
 			String aeroOasis= parts[2];
@@ -162,7 +206,7 @@ public class AirPort {
 				airLineRandom = suraAmerica;
 			}else if(airRand == 6){
 				airLineRandom = west;
-				System.out.println(airLineRandom);
+//				System.out.println(airLineRandom);
 			}
 			line = br.readLine();
 		}
@@ -225,7 +269,9 @@ public class AirPort {
 		int ranGate = (x.nextInt(9)+1);
 		return ranGate;
 	}
+	//TODO metodo para organizar segun la fecha con linked List
 	public void sortDate(){
+		/*
 		int n = flights.size();
 	    for (int i = 0; i <= n; i++) {
 	        for (int j = 0; j < n - i - 1; j++){
@@ -236,37 +282,98 @@ public class AirPort {
 	            }
 	        }
 	    }
-	        
+	     */
+		if(first != null){
+			boolean changed = true;
+			while(changed) {
+				Flight current = first;
+				changed = false;
+				while(current.getNext() != null) {
+					Flight next = current.getNext();
+					if(current.getDate().compareTo(next.getDate())>0) {
+						if(current.getPrevious()!=null) {
+							current.getPrevious().setNext(next);
+						}
+						if(next.getNext()!=null) {
+							next.getNext().setPrevious(current);
+						}
+						current.setNext(next.getNext());
+						next.setPrevious(current.getPrevious());
+						current.setPrevious(next);
+						next.setNext(current);						
+						if(current==first) {
+							first = next;
+						}
+						changed = true;
+					}else{
+						current = current.getNext();
+					}
+				}
+			}
+		}
 	}
-	/*
+	/* 
 	 * */
 	 
 	public void sortTime() {
-		 for (int I = 0; I < flights.size()-1; I++) {
-				int minPosition = I;
-				for (int J = I+1; J < flights.size() ; J++) {
-					if(flights.get(J).getHourOut() < flights.get(minPosition).getHourOut()) {
-						minPosition = J;
-					}else if(flights.get(J).getHourOut() == flights.get(minPosition).getHourOut()){
-						if(flights.get(J).getMinuteOut()<flights.get(minPosition).getMinuteOut()){
-							minPosition = J; 
-						}
-					}
-				}
-				Flight temp = flights.get(minPosition);
-				flights.set(minPosition, flights.get(I));
-				flights.set(I, temp);
-		 }
-		 
+		Flight oCurr = first.getNext();
+        while(oCurr != null) {
+            Flight curr = oCurr;
+            while(curr.getPrevious()!=null){
+                if(curr.getHourOut() < curr.getPrevious().getHourOut()) {
+                    Flight temp = curr.getPrevious();
+                    if(temp.getPrevious()!= null) {
+                       temp.getPrevious().setNext(curr);
+                   }
+                   if(curr.getNext() != null) {
+                       curr.getNext().setPrevious(temp);
+                   }
+                   temp.setNext(curr.getNext());
+                   curr.setPrevious(temp.getPrevious());
+                   temp.setPrevious(curr);
+                   curr.setNext(temp);
+                   if(temp == first)
+                       first = curr;
+                }else {
+                curr = curr.getPrevious();
+            }
+        	}
+            oCurr = oCurr.getNext();
+        }
 	}
 	
 	public void sortAirLine(){
-		
-		Collections.sort(flights);
-		
+		if(first != null){
+			boolean changed = true;
+			while(changed) {
+				Flight current = first;
+				changed = false;
+				while(current.getNext() != null) {
+					Flight next = current.getNext();
+					if(current.getAirLine().compareTo(next.getAirLine())>0) {
+						if(current.getPrevious()!=null) {
+							current.getPrevious().setNext(next);
+						}
+						if(next.getNext()!=null) {
+							next.getNext().setPrevious(current);
+						}
+						current.setNext(next.getNext());
+						next.setPrevious(current.getPrevious());
+						current.setPrevious(next);
+						next.setNext(current);						
+						if(current==first) {
+							first = next;
+						}
+						changed = true;
+					}else{
+						current = current.getNext();
+					}
+				}
+			}
+		}
 	}
-	public void sortGate(){
-		int n = flights.size();
+	/*
+	 * int n = flights.size();
 	    for (int i = 1; i <= n - 1; i++) {
 	        int x = flights.get(i).getGate();
 	        Flight temp = flights.get(i);
@@ -277,32 +384,122 @@ public class AirPort {
 	        }
 	        flights.set(j + 1, temp);
 	    }
+	 */
+	public void sortGate(){
+		/*
+		if(first != null){
+			Flight current = first;
+			while(current != null && current.getNext()!= null ){
+				Flight currentPrev = current.getNext();
+				System.out.println(currentPrev.getGate());
+				if(current.getGate()>current.getNext().getGate()){
+					boolean changed = false;
+					while(current != null){
+						System.out.println("ok");
+						if(current.getGate() < currentPrev.getGate()) {
+							current.setNext(currentPrev.getNext());
+							currentPrev.setPrevious(current.getPrevious());
+							current.setPrevious(currentPrev);
+							currentPrev.setNext(current);
+							System.out.println("ok1");
+						}
+						current = current.getPrevious();	
+					 }
+				}else {
+				current = current.getNext();
+				}
+			}
+		}
+		*/
+		if(first != null){
+			boolean changed = true;
+			while(changed) {
+				Flight current = first;
+				changed = false;
+				while(current.getNext() != null) {
+					Flight next = current.getNext();
+					if(current.getDate().compareTo(next.getDate())>0) {
+						if(current.getPrevious()!=null) {
+							current.getPrevious().setNext(next);
+						}
+						if(next.getNext()!=null) {
+							next.getNext().setPrevious(current);
+						}
+						current.setNext(next.getNext());
+						next.setPrevious(current.getPrevious());
+						current.setPrevious(next);
+						next.setNext(current);						
+						if(current==first) {
+							first = next;
+						}
+						changed = true;
+					}else{
+						current = current.getNext();
+					}
+				}
+			}
+		}
 	}
+	
 	public void sortCode(){
-		int n = flights.size();
-	    for (int i = 1; i <= n - 1; i++) {
-	        int x = Integer.parseInt(flights.get(i).getCode());
-	        Flight temp = flights.get(i);
-	        int j = i - 1;
-	        while (j >= 0 && x < Integer.parseInt(flights.get(j).getCode())) {
-	        	flights.set(j+1,flights.get(j));
-	            j = j - 1;
-	        }
-	        flights.set(j + 1, temp);
-	    }
+		if(first != null){
+			boolean changed = true;
+			while(changed) {
+				Flight current = first;
+				changed = false;
+				while(current.getNext() != null) {
+					Flight next = current.getNext();
+					if(current.getCode().compareTo(next.getCode())>0) {
+						if(current.getPrevious()!=null) {
+							current.getPrevious().setNext(next);
+						}
+						if(next.getNext()!=null) {
+							next.getNext().setPrevious(current);
+						}
+						current.setNext(next.getNext());
+						next.setPrevious(current.getPrevious());
+						current.setPrevious(next);
+						next.setNext(current);						
+						if(current==first) {
+							first = next;
+						}
+						changed = true;
+					}else{
+						current = current.getNext();
+					}
+				}
+			}
+		}
 	}	
 	public void sortCity(){
-		int n = flights.size();
-	    for(int i = 1; i <= n - 1; i++){
-	        String x = flights.get(i).getCity();
-	        Flight temp = flights.get(i);
-	        int j = i - 1;
-	        while (j >= 0 && x.compareTo(flights.get(j).getCity())<0) {
-	        	flights.set(j+1,flights.get(j));
-	            j = j - 1;
-	        }
-	        flights.set(j + 1, temp);
-	    }
+		if(first != null){
+			boolean changed = true;
+			while(changed) {
+				Flight current = first;
+				changed = false;
+				while(current.getNext() != null) {
+					Flight next = current.getNext();
+					if(current.getCity().compareTo(next.getCity())>0) {
+						if(current.getPrevious()!=null) {
+							current.getPrevious().setNext(next);
+						}
+						if(next.getNext()!=null) {
+							next.getNext().setPrevious(current);
+						}
+						current.setNext(next.getNext());
+						next.setPrevious(current.getPrevious());
+						current.setPrevious(next);
+						next.setNext(current);						
+						if(current==first) {
+							first = next;
+						}
+						changed = true;
+					}else{
+						current = current.getNext();
+					}
+				}
+			}
+		}
 	}
 	public ArrayList<Flight> getFlights() {
 		return flights;

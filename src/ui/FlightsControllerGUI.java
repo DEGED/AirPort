@@ -115,6 +115,8 @@ public class FlightsControllerGUI {
     void SortingAirLine(ActionEvent event){
     	initTime = System.currentTimeMillis();
     	airPort.sortAirLine();
+    	airPort.getFlights().clear();
+    	airPort.toArrayList();
     	inicialTableView.setItems(getFlights(airPort.getFlights()));
     	endTime = System.currentTimeMillis();
     	AlertTime();
@@ -125,6 +127,8 @@ public class FlightsControllerGUI {
     void SortingCity(ActionEvent event){
     	initTime = System.currentTimeMillis();
     	airPort.sortCity();
+    	airPort.getFlights().clear();
+    	airPort.toArrayList();
     	inicialTableView.setItems(getFlights(airPort.getFlights()));
     	endTime = System.currentTimeMillis();
     	AlertTime();
@@ -134,6 +138,8 @@ public class FlightsControllerGUI {
     void SortingCode(ActionEvent event){
     	initTime = System.currentTimeMillis();
     	airPort.sortCode();
+    	airPort.getFlights().clear();
+    	airPort.toArrayList();
     	inicialTableView.setItems(getFlights(airPort.getFlights()));
     	endTime = System.currentTimeMillis();
     	AlertTime();
@@ -143,6 +149,8 @@ public class FlightsControllerGUI {
     void SortingDate(ActionEvent event) {
     	initTime = System.currentTimeMillis();
     	airPort.sortDate();
+    	airPort.getFlights().clear();
+    	airPort.toArrayList();
     	inicialTableView.setItems(getFlights(airPort.getFlights()));
     	endTime = System.currentTimeMillis();
     	AlertTime();
@@ -150,7 +158,9 @@ public class FlightsControllerGUI {
     @FXML
     void SortingGates(ActionEvent event) {
     	initTime = System.currentTimeMillis();
-//    	TODO airPort.sortGate();
+    	airPort.sortGate();
+    	airPort.getFlights().clear();
+    	airPort.toArrayList();
     	inicialTableView.setItems(getFlights(airPort.getFlights()));
     	endTime = System.currentTimeMillis();
     	AlertTime();
@@ -160,6 +170,8 @@ public class FlightsControllerGUI {
     void SortingSchedule(ActionEvent event) {
     	initTime = System.currentTimeMillis();
     	airPort.sortTime();
+    	airPort.getFlights().clear();
+    	airPort.toArrayList();
     	inicialTableView.setItems(getFlights(airPort.getFlights()));
     	endTime = System.currentTimeMillis();
     	AlertTime();

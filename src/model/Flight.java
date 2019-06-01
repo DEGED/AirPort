@@ -24,8 +24,6 @@ public class Flight implements Comparable<Flight> {
 	private int minuteOut;
 	private int gate;
 	
-	private Flight next;
-	private Flight previous;
 //	constructor
 	public Flight(Date date, String airLine, String code, String city, int hourOut, int minuteOut, int gate) {
 		super();
@@ -40,16 +38,6 @@ public class Flight implements Comparable<Flight> {
 		timeToString();
 		
 	}
-	public void change(Date date, String airLine, String code, String city, int hourOut, int minuteOut, int gate) {
-		this.date = date;
-		this.AirLine = airLine;
-		this.code = code;
-		this.city = city;
-		this.hourOut = hourOut;
-		this.minuteOut = minuteOut;
-		this.gate = gate;
-	}	
-	
 	public void timeToString() {
 		Random x = new Random();
 		int ran = x.nextInt(2);
@@ -126,18 +114,6 @@ public class Flight implements Comparable<Flight> {
 	public void setSchedule(String schedule) {
 		this.schedule = schedule;
 	}
-	public Flight getNext() {
-		return next;
-	}
-	public void setNext(Flight next) {
-		this.next = next;
-	}
-	public Flight getPrevious() {
-		return previous;
-	}
-	public void setPrevious(Flight previous) {
-		this.previous = previous;
-	}
 	@Override
 	public int compareTo(Flight s){
 		int resultado = 0;
@@ -151,6 +127,5 @@ public class Flight implements Comparable<Flight> {
 		
 		return resultado;
 	}
-	
 	
 }
